@@ -149,6 +149,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             parentProxy,
             "User_getAllUsers"
           );
+          console.log(deleteID);
+          console.log(parentProxy);
           console.log(connection);
           if (!connection) {
             console.log(

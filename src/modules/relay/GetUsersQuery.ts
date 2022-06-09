@@ -14,6 +14,7 @@ export default graphql`
         cursor
         node {
           ...UserFragment
+          ...updateUserFragment
         }
       }
       pageInfo {

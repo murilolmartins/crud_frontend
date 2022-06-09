@@ -7,18 +7,14 @@ import * as yup from "yup";
 import { useContext } from "react";
 import { UserContext } from "../../providers/user";
 import { FiX } from "react-icons/fi";
-import { UserFragment$data } from "../../modules/relay/__generated__/UserFragment.graphql";
+import { UserFragment$key } from "../../modules/relay/__generated__/UserFragment.graphql";
 import { Modal } from "./style";
+import { useFragment } from "relay-hooks";
+import updateUserFragment from "../../modules/relay/updateUserFragment";
 
 interface UpdateModalProps {
-  user: UserFragment$data | null;
-}
-
-interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
+  node: UserFragment$key | null;
+  setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IUserUpdate {
@@ -28,8 +24,9 @@ interface IUserUpdate {
   password: string;
 }
 
-const UpdateModal = ({ user }: UpdateModalProps) => {
-  const { setModalOpen, updateUser } = useContext(UserContext);
+const UpdateModal = ({ node, setModalOpen }: UpdateModalProps) => {
+  const { updateUser } = useContext(UserContext);
+  const user = useFragment<UserFragment$key>(updateUserFragment, node);
 
   const schema = yup.object().shape({
     name: yup.string(),

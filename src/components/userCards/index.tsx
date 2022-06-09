@@ -1,4 +1,6 @@
 import { GetUsersQuery$data } from "../../modules/relay/__generated__/GetUsersQuery.graphql";
+import { useUser } from "../../providers/user";
+import UpdateModal from "../updateModal";
 import UserCard from "../userCard";
 import { Container } from "./style";
 
@@ -11,7 +13,9 @@ const UserCards = ({ data }: UserCardsProps) => {
     <Container>
       {data?.getAllUsers?.edges &&
         data.getAllUsers.edges.map((item) => (
-          <UserCard node={item && item.node} key={item?.cursor}></UserCard>
+          <>
+            <UserCard node={item && item.node} key={item?.cursor}></UserCard>
+          </>
         ))}
     </Container>
   );

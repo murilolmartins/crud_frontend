@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<1a847f4ac38bb734ec01d75dd6682cfc>>
+ * @generated SignedSource<<ca22cb4823d413e96ac9c91fe38cdd3e>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -21,7 +21,7 @@ export type GetUsersQuery$data = {
     readonly edges: ReadonlyArray<{
       readonly cursor: string;
       readonly node: {
-        readonly " $fragmentSpreads": FragmentRefs<"UserFragment">;
+        readonly " $fragmentSpreads": FragmentRefs<"UserFragment" | "updateUserFragment">;
       } | null;
     } | null> | null;
     readonly pageInfo: {
@@ -175,6 +175,11 @@ return {
                     "kind": "FragmentSpread",
                     "name": "UserFragment"
                   },
+                  {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "updateUserFragment"
+                  },
                   (v5/*: any*/)
                 ],
                 "storageKey": null
@@ -277,7 +282,7 @@ return {
     ]
   },
   "params": {
-    "cacheID": "c0ea846dcb2b4ed4bcbf68f139bcf70a",
+    "cacheID": "2ccdf11788ac8880fe0b860298dbc1e0",
     "id": null,
     "metadata": {
       "connection": [
@@ -293,11 +298,11 @@ return {
     },
     "name": "GetUsersQuery",
     "operationKind": "query",
-    "text": "query GetUsersQuery(\n  $after: String\n  $first: Int\n  $before: String\n  $last: Int\n) {\n  getAllUsers(after: $after, first: $first, before: $before, last: $last) {\n    edges {\n      cursor\n      node {\n        ...UserFragment\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment UserFragment on User {\n  id\n  name\n  email\n  password\n}\n"
+    "text": "query GetUsersQuery(\n  $after: String\n  $first: Int\n  $before: String\n  $last: Int\n) {\n  getAllUsers(after: $after, first: $first, before: $before, last: $last) {\n    edges {\n      cursor\n      node {\n        ...UserFragment\n        ...updateUserFragment\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      hasPreviousPage\n      startCursor\n      endCursor\n    }\n  }\n}\n\nfragment UserFragment on User {\n  id\n  name\n  email\n  password\n}\n\nfragment updateUserFragment on User {\n  id\n  name\n  email\n  password\n}\n"
   }
 };
 })();
 
-(node as any).hash = "f3670d644e085002fbf64dc79e68ba5b";
+(node as any).hash = "402220c6d1f42778db3f9353d8c402ab";
 
 export default node;

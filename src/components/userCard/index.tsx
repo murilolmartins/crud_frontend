@@ -5,21 +5,27 @@ import { Container } from "./style";
 import { FiX, FiPenTool } from "react-icons/fi";
 import { useUser } from "../../providers/user";
 import UpdateModal from "../updateModal";
+import { useState } from "react";
 
 interface UserCardProps {
   node: UserFragment$key | null;
 }
-
 const UserCard = ({ node }: UserCardProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const user = useFragment<UserFragment$key>(UserFragment, node);
-  const { deleteUser, setModalOpen, modalOpen } = useUser();
+  const { deleteUser } = useUser();
 
   return (
     <>
       <Container>
         <header>
           <div>
-            <FiPenTool onClick={() => setModalOpen(true)} />
+            <FiPenTool
+              onClick={() => {
+                console.log(user);
+                setModalOpen(true);
+              }}
+            />
           </div>
           <div>
             <FiX onClick={() => user?.id && deleteUser({ id: user.id })} />
@@ -35,7 +41,7 @@ const UserCard = ({ node }: UserCardProps) => {
           <p>{user?.id}</p>
         </div>
       </Container>
-      {modalOpen && <UpdateModal user={user} />}
+      {modalOpen && <UpdateModal node={node} setModalOpen={setModalOpen} />}
     </>
   );
 };
