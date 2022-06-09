@@ -1,0 +1,123 @@
+schema {
+  query: RootQuery
+  mutation: Mutation
+}
+
+type RootQuery {
+  getAllUsers(
+    # Returns the items in the list that come after the specified cursor.
+    after: String
+
+    # Returns the first n items from the list.
+    first: Int
+
+    # Returns the items in the list that come before the specified cursor.
+    before: String
+
+    # Returns the last n items from the list.
+    last: Int
+  ): UserConnection!
+}
+
+# A connection to a list of items.
+type UserConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [UserEdge]
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# An edge in a connection.
+type UserEdge {
+  # The item at the end of the edge
+  node: User
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# User type
+type User {
+  id: String!
+  name: String
+  email: String
+  password: String
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): CreateUserPayload
+  deleteUser(input: DeleteUserInput!): DeleteUserPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  login(input: LoginInput!): LoginPayload
+}
+
+type CreateUserPayload {
+  userEdge: UserEdge
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type DeleteUserPayload {
+  Message: String
+  deleteID: String
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input DeleteUserInput {
+  id: ID!
+  clientMutationId: String
+}
+
+type UpdateUserPayload {
+  userEdge: UserEdge
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  email: String
+  password: String
+  clientMutationId: String
+}
+
+type LoginPayload {
+  Token: String
+  error: String
+  success: String
+  clientMutationId: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
