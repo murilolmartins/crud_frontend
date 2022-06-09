@@ -2,8 +2,10 @@ import { Link, useHistory } from "react-router-dom";
 import { Container } from "./style";
 import logo from "../../assets/images/bemtevi.jpeg";
 import logout from "./../../assets/images/Logout.png";
+import { useUser } from "../../providers/user";
 
 const DesktopHeader = ({ isDashBoard = false }) => {
+  const { logOut } = useUser();
   const history = useHistory();
   return (
     <>
@@ -17,7 +19,7 @@ const DesktopHeader = ({ isDashBoard = false }) => {
             <img src={logo} alt="Logo" />
           </figure>
           <div className="links">
-            <img src={logout} alt="" />
+            <img src={logout} alt="" onClick={logOut} />
           </div>
         </Container>
       ) : (

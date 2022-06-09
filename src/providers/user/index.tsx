@@ -44,6 +44,7 @@ interface IUserUpdate {
 }
 
 interface UserContextData {
+  logOut: () => void;
   login: (data: IUserLogin) => void;
   createUser: (data: IUserCreate) => void;
   deleteUser: (data: IUserDelete) => void;
@@ -67,6 +68,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   const [submitCreate] = useMutation(CreateUserMutation);
   const [submitDelete] = useMutation(DeleteUserMutation);
   const [submitUpdate] = useMutation(UpdateUserMutation);
+
+  const logOut = useCallback(() => {
+    localStorage.removeItem("@CRUD:Token");
+    history.push("/");
+  }, []);
 
   const login = useCallback(async (data: IUserLogin) => {
     const config = {
@@ -201,6 +207,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         updateUser,
         modalOpen,
         setModalOpen,
+        logOut,
       }}
     >
       {children}
